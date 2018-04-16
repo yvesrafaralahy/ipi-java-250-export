@@ -18,26 +18,56 @@ public class InitData {
     private EntityManager em;
 
     public void insertTestData() {
+        Client client1 = newClient("PETRI;LLO", "Alexandre");
+        em.persist(client1);
 
-        Client client  = new Client();
-        client.setNom("PETRILLO");
-        client.setPrenom("Alexandre");
-        em.persist(client);
+        Client client2 = newClient("Dupont", "Jérome");
+        em.persist(client2);
 
+        Article article1 = newArticle("Carte mère ASROCK 2345", 79.90);
+        em.persist(article1);
+
+        Article article2 = newArticle("Clé USB", 9.90);
+        em.persist(article2);
+
+        {
+            Facture facture = newFacture(client1);
+            em.persist(facture);
+            em.persist(newLigneFacture(article1, facture, 1));
+        }
+        {
+            Facture facture = newFacture(client1);
+            em.persist(facture);
+            em.persist(newLigneFacture(article1, facture, 1));
+            em.persist(newLigneFacture(article2, facture, 5));
+        }
+    }
+
+    private Client newClient(String nom, String prenom) {
+        Client client = new Client();
+        client.setNom(nom);
+        client.setPrenom(prenom);
+        return client;
+    }
+
+    private Article newArticle(String libelle, double prix) {
         Article article = new Article();
-        article.setLibelle("Carte mère ASROCK 2345");
-        article.setPrix(79.90);
-        em.persist(article);
+        article.setLibelle(libelle);
+        article.setPrix(prix);
+        return article;
+    }
 
+    private Facture newFacture(Client client) {
         Facture facture = new Facture();
         facture.setClient(client);
-        em.persist(facture);
+        return facture;
+    }
 
+    private LigneFacture newLigneFacture(Article article, Facture facture, int quantite) {
         LigneFacture ligneFacture1 = new LigneFacture();
         ligneFacture1.setFacture(facture);
         ligneFacture1.setArticle(article);
-        ligneFacture1.setQuantite(1);
-        em.persist(ligneFacture1);
-
+        ligneFacture1.setQuantite(quantite);
+        return ligneFacture1;
     }
 }

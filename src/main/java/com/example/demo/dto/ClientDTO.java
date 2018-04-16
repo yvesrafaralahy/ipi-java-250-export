@@ -6,9 +6,19 @@ package com.example.demo.dto;
  */
 public class ClientDTO {
 
+    private Long id;
+
     private String prenom;
 
     private String nom;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getPrenom() {
         return prenom;
