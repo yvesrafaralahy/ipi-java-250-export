@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.FactureDTO;
+import com.example.demo.entity.Facture;
 import com.example.demo.repository.FactureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -29,5 +31,15 @@ public class FactureService {
                 .orElseThrow(() ->
                         new IllegalArgumentException("Facture inconnu " + id)
                 );
+    }
+
+    public List<FactureDTO> findByClientId(Long clientId) {
+        List<Facture> factures = factureRepository.findByClientId(clientId);
+        List<FactureDTO> dtos = new ArrayList<>();
+        for (Facture facture : factures) {
+            FactureDTO factureDTO = factureMapper.map(facture);
+            dtos.add(factureDTO);
+        }
+        return dtos;
     }
 }

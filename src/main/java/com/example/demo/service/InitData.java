@@ -47,6 +47,7 @@ public class InitData {
         Client client = new Client();
         client.setNom(nom);
         client.setPrenom(prenom);
+        client.setAge(25);
         return client;
     }
 

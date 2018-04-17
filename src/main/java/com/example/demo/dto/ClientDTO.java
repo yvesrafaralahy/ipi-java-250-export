@@ -12,6 +12,8 @@ public class ClientDTO {
 
     private String nom;
 
+    private Integer age;
+
     public Long getId() {
         return id;
     }
@@ -34,5 +36,13 @@ public class ClientDTO {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
